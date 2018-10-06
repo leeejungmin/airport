@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Registartion{% endblock %}
+
+
+{% block body %}
+<section id="commentaires">
+  {% for ami in users%}
+      <hr>
+        <p>Son username :  {{ami.username}}</p>
+        <p>Son email :  {{ami.email}}</p>
+
+      <hr>
+{% endblock %}
