@@ -23,7 +23,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-cookies.js"></script>
     <script src="https://code.angularjs.org/1.7.2/angular-route.min.js"></script>
-  
+
 
     <title>{% block title %}{% endblock %}</title>
 
@@ -48,8 +48,8 @@
       <nav class="my-2 my-md-0 mr-md-3">
           {% if app.user %}
         <a class="p-2 text-dark" href="/amis">Amis</a>
-        <a class="p-2 text-dark" href="/article">Profiter</a>
-        <a class="p-2 text-dark" href="{{path('articleregister')}}">Participer</a>
+        <a class="p-2 text-dark" href="{{path('vollists')}}">Profiter</a>
+        <a class="p-2 text-dark" href="{{path('vollists')}}">Participer</a>
           {% else %}
         <a class="p-2 text-dark" href="/article">profiter</a>
           {% endif %}

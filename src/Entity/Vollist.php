@@ -38,6 +38,16 @@ class Vollist
      */
     private $vols;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $depart;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $arrive;
+
     public function __construct()
     {
         $this->vols = new ArrayCollection();
@@ -111,6 +121,30 @@ class Vollist
                 $vol->setVolnum(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDepart(): ?int
+    {
+        return $this->depart;
+    }
+
+    public function setDepart(?int $depart): self
+    {
+        $this->depart = $depart;
+
+        return $this;
+    }
+
+    public function getArrive(): ?int
+    {
+        return $this->arrive;
+    }
+
+    public function setArrive(?int $arrive): self
+    {
+        $this->arrive = $arrive;
 
         return $this;
     }

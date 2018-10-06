@@ -34,17 +34,27 @@ class VolRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Vol
-    {
-        return $this->createQueryBuilder('v')
-            ->andWhere('v.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
     */
+    public function volsituation($price): array
+  {
+      $conn = $this->getEntityManager()->getConnection();
+      $sql = 'SELECT volnum, COUNT(volnum) from Vol GROUP BY volnum';
+
+      $stmt = $conn->prepare($sql);
+      $stmt->execute();
+
+      // returns an array of arrays (i.e. a raw data set)
+      return $stmt->fetchAll();
+  }
 }
+
+//
+// $sql = '
+//     SELECT name,
+//       COUNT(CASE WHEN volnum="FR1" THEN 1 END),
+//       COUNT(CASE WHEN volnum="FR2" THEN 1 END),
+//       COUNT(CASE WHEN volnum="FR3" THEN 1 END)
+//     FROM Vol
+//     GROUP BY name
+//     ';
