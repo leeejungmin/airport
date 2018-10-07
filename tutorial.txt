@@ -160,3 +160,21 @@ https://www.youtube.com/watch?v=L-hYd2DObTA&t=93s
 
 -------------------------
 JE  FAIRE CA TOUT CE QUI EST GRACE A MON SEINGEUR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!JUNGMIN!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+---------------------
+{% if app.user.hasRole('ROLE_PASSENGER') %}
+          PASSENGER!!
+          {% endif %}
+          {% if is_granted('ROLE_USER') %}
+          {% if not app.user %}
+          Enchante
+          {% else %}
+          {{app.user.username}}
+          {% endif%}
+          {% endif %}
+
+
+
+
+onclick="window.location.href='/registrationPas'"

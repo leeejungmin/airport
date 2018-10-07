@@ -11,7 +11,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 use App\Entity\User;
 use App\Form\UserregisterType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
+/**
+ * @IsGranted("ROLE_USER")
+ */
 class DefaultController extends AbstractController
 {
     /**

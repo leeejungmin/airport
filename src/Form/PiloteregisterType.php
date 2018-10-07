@@ -9,9 +9,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 
-class UserregisterType extends AbstractType
+
+class PiloteregisterType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -24,16 +26,10 @@ class UserregisterType extends AbstractType
               'multiple' => true,
               'expanded' => true,
               'choices' => [
-                'PASSENGER' => 'ROLE_PASSENGER',
-                'PILOTE' => 'ROLE_PILOTE',
-                'ADMIN' => 'ROLE_ADMIN',
+                'Pilote' => 'ROLE_PILOTE',
               ]
             ])
-            // ->add('submit', SubmitType::class,[
-            //   'attr' => [
-            //     'class' => 'btn btn-success pull-right'
-            //   ]
-            // ])
+
         ;
     }
 

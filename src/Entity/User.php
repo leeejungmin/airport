@@ -108,6 +108,10 @@ class User implements UserInterface
     *   return array('ROLE_USER');
     * }
     *</code>
+    * Alternatively, the roles might be stored on a ``roles`` property,
+    * and populated in any number of different ways when the user object
+    * is created.
+    *
     *@return array(Role|string)[] The user $roles
     */
     public function getRoles(): ?array
@@ -126,9 +130,16 @@ class User implements UserInterface
 
         return $this;
     }
+    
+    public function hasRole($role)
+    {
+      return in_array($role, $this->getRoles());
+    }
+
+
     public function eraseCredentials() {}
     public function getSalt() {}
     // public function getRoles() {
     //     return ['ROLE_USER' ];
     // }
-}
+  }

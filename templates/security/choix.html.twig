@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Registartion{% endblock %}
+
+
+{% block body %}
+
+  <div class="form-group">
+    Êtes-vous un PASSAGER?
+    <hr>
+    <input type="button" class="btn btn-default" onclick="window.location.href='/inscriptionPas'" value='PASSAGER'/>
+
+    </div>
+    <hr>
+  <div class="form-group">
+    Êtes-vous un PILOTE?
+    <hr>
+    <input type="button" class="btn btn-success" onclick="window.location.href='/inscriptionPilote'" value='PILOTE'/>
+
+    </div>
+
+{% endblock %}

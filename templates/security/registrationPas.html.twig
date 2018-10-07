@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+{% block title %}Registartion{% endblock %}
+
+
+{% block body %}
+<form action="{{path('PasTreat')}}" method="post">
+
+  <div class="form-group">
+    <label for="piloteregister_username" class="required">Username</label>
+    <input required name="username"
+    type="text" class="form-control">
+    </div>
+  <div class="form-group">
+    <label for="piloteregister_username" class="required">Email</label>
+    <input  required name="email"
+    type="text" class="form-control">
+    </div>
+  <div class="form-group">
+    <label for="piloteregister_username" class="required">Password</label>
+    <input  required name="password"
+    type="password" class="form-control">
+    </div>
+  <div class="form-group">
+    <label for="piloteregister_username" class="required">Confirm password</label>
+    <input required name="confirm_password"
+    type="password" class="form-control">
+    </div>
+    </div><fieldset class="form-group"><legend class="col-form-label required">Roles</legend><div id="pasregister_roles"><div class="form-check">        <input type="checkbox" id="pasregister_roles_0" name="pasregister[roles][]" class="form-check-input" value="ROLE_PASSENGER" />
+        <label class="form-check-label" for="pasregister_roles_0">PASSENGER</label></div></div></fieldset><input type="hidden" id="pasregister__token" name="pasregister[_token]" value="rL17xX1Q2ffp8eKLTX7C-1lX60cZScLCYqI42mBXB9s" /></div>
+    <button type="submit" class="btn btn-success">Enregister</button>
+    </div>
+  </form>
+{% endblock %}
