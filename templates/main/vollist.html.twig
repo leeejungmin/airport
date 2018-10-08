@@ -1,23 +1,91 @@
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-
-    <hr>
-
-    <article>
+{% extends 'base.html.twig' %}
 
 
-    <div class="content">
+{%  block body %}
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<div ng-app="leeApp">
+{% verbatim %}
 
-    {% for art in vollist %}
-      <img src={{art.nourriture}} alt="ll" height="350" width="700">
+<div class="form-group " ng-controller="amischerchController" >
 
-      <p> Le nom de Vol est {{art.volnum}} </p>
-      <p> Le pilote est {{art.pilote}} </p>
-      <p> L'arrive est {{art.arrive}} </p>
-      <p> Le depart est {{art.depart}} </p>
-      <p> Le situation de Vol est {{vol.lengh}}/5 </p>
+<div class="navbar navbar-default">
+
+<div class="form-group has-feedback">
+<span class="fa fa-search form-control-feedback">CHERCHE:</span>
+
+
+<br /><br />
+<input id="search" class="form-control" type="text" placeholder="Cherche amis" ng-model="searchText" />
+
+</div>
+</div>
+
+
+
+  <hr>
+  <li  ng-repeat= "vol in vols | filter: searchText">
+  <p>Prenom: [[vol.username]]</p>
+
+  <p>Son email: [[vol.email]]</p>
+
+  <hr>
+  </li>
+
+  </div>
+
+{% endverbatim %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+
+var leeApp = angular.module('leeApp', ['ngRoute']);
+
+
+leeApp.
+  config([ '$routeProvider','$interpolateProvider', function($routeProvider, $interpolateProvider) {
+  $interpolateProvider.startSymbol('[[');
+  $interpolateProvider.endSymbol(']]');
+}])
+
+
+.controller('amischerchController',['$scope', '$http', function($scope, $http, $location){
+
+  $scope.amis=[];
+
+  $http.get("http://localhost:7000/api/vol")
+  .then(function (response)
+    { console.log(response.data);
+      $scope.vols = response.data;},
+    function onError(reponse)
+    { console.log("essayer jungmin encore");
+
+    });
+
+
+
+  }]);
+
+
+
+
+
+    </script>
+{% endblock %}
+</div>
+{% endblock %}

@@ -18,64 +18,31 @@ class Vol
      */
     private $id;
 
-
-
-
-
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Passenger", mappedBy="vol")
-     */
-    private $passengers;
-
     /**
      * @ORM\Column(type="string", length=100)
      */
     private $volnum;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Pilote", inversedBy="vol")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="pilote")
      */
-    private $pilot;
+    private $pilote;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="passager")
+     */
+    private $passager;
+
+
+
 
     public function __construct()
     {
-        $this->passengers = new ArrayCollection();
+        $this->passager = new ArrayCollection();
     }
 
 
 
-
-
-  
-
-    /**
-     * @return Collection|Passenger[]
-     */
-    public function getPassengers(): Collection
-    {
-        return $this->passengers;
-    }
-
-    public function addPassenger(Passenger $passenger): self
-    {
-        if (!$this->passengers->contains($passenger)) {
-            $this->passengers[] = $passenger;
-            $passenger->addVol($this);
-        }
-
-        return $this;
-    }
-
-    public function removePassenger(Passenger $passenger): self
-    {
-        if ($this->passengers->contains($passenger)) {
-            $this->passengers->removeElement($passenger);
-            $passenger->removeVol($this);
-        }
-
-        return $this;
-    }
 
     public function getVolnum(): ?string
     {
@@ -89,17 +56,45 @@ class Vol
         return $this;
     }
 
-    public function getPilot(): ?Pilote
+    public function getPilote(): ?User
     {
-        return $this->pilot;
+        return $this->pilote;
     }
 
-    public function setPilot(?Pilote $pilot): self
+    public function setPilote(?User $pilote): self
     {
-        $this->pilot = $pilot;
+        $this->pilote = $pilote;
 
         return $this;
     }
 
+    /**
+     * @return Collection|User[]
+     */
+    public function getPassager(): Collection
+    {
+        return $this->passager;
+    }
 
+    public function addPassager(User $passager): self
+    {
+        if (!$this->passager->contains($passager)) {
+            $this->passager[] = $passager;
+            $passager->addPassager($this);
+        }
+
+        return $this;
+    }
+
+    public function removePassager(User $passager): self
+    {
+        if ($this->passager->contains($passager)) {
+            $this->passager->removeElement($passager);
+            $passager->removePassager($this);
+        }
+
+        return $this;
+    }
+
+    
 }

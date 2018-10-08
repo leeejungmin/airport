@@ -30,7 +30,7 @@ class MainController extends AbstractController
 
         $user = $this->getUser();
 
-        $repo = $this->getDoctrine()->getRepository(Vollist::class);
+        $repo = $this->getDoctrine()->getRepository(Vol::class);
 
         $vollist = $repo->findAll();
 

@@ -1,0 +1,142 @@
+<?php
+
+namespace App\Entity;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+<?php
+
+// api/src/Entity/Album.php
+
+namespace App\Entity;
+
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiProperty;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * @ApiResource(
+ *      collectionOperations = {
+ *          "get"={
+ *              "method"="GET",
+ *              "path"="/album.{_format}",
+ *          },
+ *          "post"={
+ *              "method"="POST",
+ *              "path"="/album.{_format}",
+ *          },
+ *      },
+ *     itemOperations={
+ *          "get"={
+ *              "method"="GET",
+ *              "path"="/album/{id}.{_format}",
+ *          },
++*          "put"={
++*              "path"="/album/{id}.{_format}",
++*          },
+ *     }
+ * )
+ * @ORM\Entity()
+ * @ApiResource(iri="http://schema.org/MusicAlbum")
+ */
+class Album
+{
+/**
+ * @ORM\Entity(repositoryClass="App\Repository\VolRepository")
+ */
+class Vol
+{
+    /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+
+
+
+
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Passenger", mappedBy="vol")
+     */
+    private $passengers;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $volnum;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Pilote", inversedBy="vol")
+     */
+    private $pilot;
+
+    public function __construct()
+    {
+        $this->passengers = new ArrayCollection();
+    }
+
+
+
+
+
+
+
+    /**
+     * @return Collection|Passenger[]
+     */
+    public function getPassengers(): Collection
+    {
+        return $this->passengers;
+    }
+
+    public function addPassenger(Passenger $passenger): self
+    {
+        if (!$this->passengers->contains($passenger)) {
+            $this->passengers[] = $passenger;
+            $passenger->addVol($this);
+        }
+
+        return $this;
+    }
+
+    public function removePassenger(Passenger $passenger): self
+    {
+        if ($this->passengers->contains($passenger)) {
+            $this->passengers->removeElement($passenger);
+            $passenger->removeVol($this);
+        }
+
+        return $this;
+    }
+
+    public function getVolnum(): ?string
+    {
+        return $this->volnum;
+    }
+
+    public function setVolnum(string $volnum): self
+    {
+        $this->volnum = $volnum;
+
+        return $this;
+    }
+
+    public function getPilot(): ?Pilote
+    {
+        return $this->pilot;
+    }
+
+    public function setPilot(?Pilote $pilot): self
+    {
+        $this->pilot = $pilot;
+
+        return $this;
+    }
+
+
+}

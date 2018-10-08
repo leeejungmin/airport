@@ -48,6 +48,51 @@ connection.connect(function(error){
   }
 });
 
+// monte la liste de vol avec pilote , passager
+app.get('/api/vol',function(req, res){
+
+  connection.query("SELECT user.username, t.username as pilotname,vol.volnum FROM (( user_vol INNER JOIN user ON user.id = user_vol.user_id ) INNER JOIN vol ON user_vol.vol_id=vol.id)LEFT JOIN user as t ON vol.pilote_id = t.id;", function(err, rows, fields) {
+    if (!!err){
+
+      console.log('Essayer!!!!!!!!!!!!!!!');
+    }else{
+
+      console.log('Success Jungmin!!\n');
+      console.log(rows);
+      res.json(rows);
+    }
+
+  });
+
+});
+
+
+// monte la liste de vol avec pilote , passager
+app.get('/api/volnum',function(req, res){
+
+  connection.query("SELECT vol.volnum ,t.username as pilotename, COUNT(*) as pasnum FROM (( user_vol INNER JOIN user ON user.id = user_vol.user_id ) INNER JOIN vol ON user_vol.vol_id=vol.id)LEFT JOIN user as t ON vol.pilote_id = t.id Group By volnum, t.username;", function(err, rows, fields) {
+    if (!!err){
+
+      console.log('Essayer!!!!!!!!!!!!!!!');
+    }else{
+
+      console.log('Success Jungmin!!\n');
+      console.log(rows);
+      res.json(rows);
+    }
+
+  });
+
+});
+
+
+
+
+
+
+
+
+//monte la liste avec
 app.get('/api/users',function(req, res){
 
   connection.query("SELECT * FROM user;", function(err, rows, fields) {

@@ -14,20 +14,20 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 use App\Entity\User;
 use App\Entity\Passenger;
-use App\Entity\Pilote;
+
 use App\Form\UserregisterType;
 use App\Form\PasregisterType;
-use App\Form\PiloteregisterType;
+
 
 class SecurityController extends Controller
 {
     /**
-     * @Route("/inscriptionPilote", name="registrationPilote")
+     * @Route("/inscription", name="security_registration")
      */
-    public function inscriptionPilote(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
+    public function inscription(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
     {
       $user = new User();
-      $form = $this->createForm(PasregisterType::class, $user);
+      $form = $this->createForm(UserregisterType::class, $user);
 
       $form->handleRequest($request);
 
@@ -42,7 +42,7 @@ class SecurityController extends Controller
 
         return $this->redirectToRoute('security_login');
       }
-        return $this->render('security/registrationPilote.html.twig', [
+        return $this->render('security/registration.html.twig', [
 
               'form' => $form->createView(),
 
@@ -75,67 +75,41 @@ class SecurityController extends Controller
 
         ]);
     }
-
-    /**
-  * @Route("/PasTreat", name="PasTreat")
-  */
-  public function Pastreat(Passenger $pas){
-
-
-      $entityManager = $this->getDoctrine()->getManager();
-      $repo = $entityManager->getRepository(Passenger::class);
-
-      $article = $repo->find($id);
-
-      $username = $_POST["username"];
-      $email = $_POST["email"];
-      $password = $_POST["password"];
-      $roles = $_POST["roles"];
-
-      $comment->setAuthor($author)
-              ->setContent($content)
-              ->setArticle($article);
-
-     $entityManager->persist($comment);
-     $entityManager->flush();
-
-     return $this->redirectToRoute('article');
-
-   }
-    /**
-  * @Route("/PiloteTreat", name="PiloteTreat")
-  */
-  public function Pilotetreat(Pilote $pilote){
-
-
-      $entityManager = $this->getDoctrine()->getManager();
-      $repo = $entityManager->getRepository(Pilote::class);
-
-      $article = $repo->find($id);
-
-      $author = $_POST["author"];
-      $content = $_POST["content"];
-
-      $comment->setAuthor($author)
-              ->setContent($content)
-              ->setArticle($article);
-
-     $entityManager->persist($comment);
-     $entityManager->flush();
-
-     return $this->redirectToRoute('article');
-
-   }
-    /**
-     * @Route("/inscription", name="security_registration")
-     */
-    public function choix(){
-        return $this->render('security/choix.html.twig', [
-
-
-        ]);
-
-    }
+  //
+  //   /**
+  // * @Route("/PiloteTreat", name="PiloteTreat")
+  // */
+  // public function Pilotetreat(Pilote $pilote){
+  //
+  //
+  //     $entityManager = $this->getDoctrine()->getManager();
+  //     $repo = $entityManager->getRepository(Pilote::class);
+  //
+  //     $article = $repo->find($id);
+  //
+  //     $author = $_POST["author"];
+  //     $content = $_POST["content"];
+  //
+  //     $comment->setAuthor($author)
+  //             ->setContent($content)
+  //             ->setArticle($article);
+  //
+  //    $entityManager->persist($comment);
+  //    $entityManager->flush();
+  //
+  //    return $this->redirectToRoute('article');
+  //
+  //  }
+    // /**
+    //  * @Route("/inscription", name="security_registration")
+    //  */
+    // public function choix(){
+    //     return $this->render('security/choix.html.twig', [
+    //
+    //
+    //     ]);
+    //
+    // }
     /**
      * @Route("/connexion", name="security_login")
      */
@@ -169,4 +143,37 @@ class SecurityController extends Controller
       ]);
   }
 
+  //   /**
+  // * @Route("/PasTreat", name="PasTreat")
+  // */
+  // public function Pastreat(Passenger $pas){
+  //
+  //
+  //     $entityManager1 = $this->getDoctrine()->getManager();
+  //     $repo1 = $entityManager1->getRepository(User::class);
+  //     $entityManager2 = $this->getDoctrine()->getManager();
+  //     $repo2 = $entityManager2->getRepository(Passenger::class);
+  //     $Pas = new Passenger();
+  //
+  //     $username = $_POST["username"];
+  //     $email = $_POST["email"];
+  //     $password = $_POST["password"];
+  //     $roles = $_POST["roles"];
+  //
+  //     $repo1  ->setUsername($username)
+  //             ->setEmail($email)
+  //             ->setPassword($password)
+  //             ->setRoles($roles);
+  //
+  //
+  //    $entityManager->persist($repo1);
+  //    $entityManager->flush();
+  //
+  //    $pas = $repo1->find($username);
+  //    $pas->setPassenger($pas);
+  //
+  //
+  //    return $this->redirectToRoute('article');
+  //
+  //  }
 }

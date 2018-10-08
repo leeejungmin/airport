@@ -52,6 +52,28 @@ class User implements UserInterface
      */
     private $roles = [];
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Vol", mappedBy="pilote")
+     */
+    private $pilote;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Vol", inversedBy="passager")
+     */
+    private $passager;
+
+
+
+
+
+
+
+    public function __construct()
+    {
+        $this->pilote = new ArrayCollection();
+        $this->passager = new ArrayCollection();
+    }
+
 
 
     public function getId(): ?int
@@ -95,10 +117,9 @@ class User implements UserInterface
         return $this;
     }
 
-    // public function getRoles(): ?array
-    // {
-    //     return $this->roles;
-    // }
+
+
+
     /**
     * Returns the roles granted to the user.
     *
@@ -130,7 +151,7 @@ class User implements UserInterface
 
         return $this;
     }
-    
+
     public function hasRole($role)
     {
       return in_array($role, $this->getRoles());
@@ -139,7 +160,65 @@ class User implements UserInterface
 
     public function eraseCredentials() {}
     public function getSalt() {}
-    // public function getRoles() {
-    //     return ['ROLE_USER' ];
-    // }
+
+    /**
+     * @return Collection|Vol[]
+     */
+    public function getPilote(): Collection
+    {
+        return $this->pilote;
+    }
+
+    public function addPilote(Vol $pilote): self
+    {
+        if (!$this->pilote->contains($pilote)) {
+            $this->pilote[] = $pilote;
+            $pilote->setPilote($this);
+        }
+
+        return $this;
+    }
+
+    public function removePilote(Vol $pilote): self
+    {
+        if ($this->pilote->contains($pilote)) {
+            $this->pilote->removeElement($pilote);
+            // set the owning side to null (unless already changed)
+            if ($pilote->getPilote() === $this) {
+                $pilote->setPilote(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Vol[]
+     */
+    public function getPassager(): Collection
+    {
+        return $this->passager;
+    }
+
+    public function addPassager(Vol $passager): self
+    {
+        if (!$this->passager->contains($passager)) {
+            $this->passager[] = $passager;
+        }
+
+        return $this;
+    }
+
+    public function removePassager(Vol $passager): self
+    {
+        if ($this->passager->contains($passager)) {
+            $this->passager->removeElement($passager);
+        }
+
+        return $this;
+    }
+
+
+
+  
   }

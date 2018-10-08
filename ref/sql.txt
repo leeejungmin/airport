@@ -1,0 +1,19 @@
+
+SELECT  user.username, vol.pilote_id ,vol.volnum FROM ((vol INNER JOIN user WHERE  user.id = vol.pilote_id )
+INNER JOIN user_vol WHERE  user_vol.vol_id=vol.id);
+
+il monte username qui est pilote 
+
+-----------------------------------------
+
+SELECT user.username, vol.pilote_id ,vol.volnum FROM (( user_vol INNER JOIN user ON user.id = user_vol.user_id ) INNER JOIN vol ON user_vol.vol_id=vol.id)
+
+il monte volnum 1 ....
+---------------------------------
+
+
+SELECT user.username, t.username as pilotname,vol.volnum FROM (( user_vol INNER JOIN user ON user.id = user_vol.user_id ) INNER JOIN vol ON user_vol.vol_id=vol.id)LEFT JOIN user as t ON vol.pilote_id = t.id
+
+------------------------------------
+
+SELECT vol.volnum ,COUNT(*) as pasnum FROM (( user_vol INNER JOIN user ON user.id = user_vol.user_id ) INNER JOIN vol ON user_vol.vol_id=vol.id)LEFT JOIN user as t ON vol.pilote_id = t.id Group By volnum
