@@ -13,14 +13,39 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 use App\Entity\User;
-use App\Entity\Passenger;
+
 
 use App\Form\UserregisterType;
-use App\Form\PasregisterType;
+
 
 
 class SecurityController extends Controller
 {
+    /**
+     * @Route("/edit/{id}", name="edit")
+     */
+    public function edit(User $user, Request $request, ObjectManager $manager )
+    {
+      // $user = new User();
+      $form = $this->createForm(UserregisterType::class, $user);
+
+      $form->handleRequest($request);
+
+
+
+      if($form->isSubmitted() && $form->isValid()){
+
+        $manager->persist($user);
+        $manager->flush();
+
+        return $this->redirectToRoute('main');
+      }
+        return $this->render('security/edit.html.twig', [
+
+              'form' => $form->createView(),
+
+        ]);
+    }
     /**
      * @Route("/inscription", name="security_registration")
      */
@@ -42,7 +67,7 @@ class SecurityController extends Controller
 
         return $this->redirectToRoute('security_login');
       }
-        return $this->render('security/registration.html.twig', [
+        return $this->render('security/register.html.twig', [
 
               'form' => $form->createView(),
 
@@ -132,14 +157,14 @@ class SecurityController extends Controller
     /**
    * @Route("/", name="main")
    */
-  public function index()
+  public function main()
   {
-
+      $user = $this->getUser();
 
 
       return $this->render('base.html.twig', [
-          'controller_name' => 'Welcome'
-
+          'controller_name' => 'Welcome',
+          'user' => $user
       ]);
   }
 

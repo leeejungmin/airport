@@ -70,7 +70,7 @@ app.get('/api/vol',function(req, res){
 // monte la liste de vol avec pilote , passager
 app.get('/api/volnum',function(req, res){
 
-  connection.query("SELECT vol.volnum ,t.username as pilotename, COUNT(*) as pasnum FROM (( user_vol INNER JOIN user ON user.id = user_vol.user_id ) INNER JOIN vol ON user_vol.vol_id=vol.id)LEFT JOIN user as t ON vol.pilote_id = t.id Group By volnum, t.username;", function(err, rows, fields) {
+  connection.query("SELECT vol.id, vol.volnum ,t.username as pilotename, COUNT(*) as pasnum FROM (( user_vol INNER JOIN user ON user.id = user_vol.user_id ) INNER JOIN vol ON user_vol.vol_id=vol.id)LEFT JOIN user as t ON vol.pilote_id = t.id Group By volnum, t.username, vol.id;", function(err, rows, fields) {
     if (!!err){
 
       console.log('Essayer!!!!!!!!!!!!!!!');
@@ -86,6 +86,84 @@ app.get('/api/volnum',function(req, res){
 });
 
 
+// ajouter pas base de donne
+
+app.post('/api/addpas',function(req, res){
+
+  console.log("quest ce que c'est?");
+  console.log(req.body);
+
+  var sql = 'INSERT INTO user_vol (user_id,vol_id) VALUES (?,?);';
+
+  var values = [
+    req.body.userid,
+    req.body.amisid,
+
+
+  ]
+
+  ;
+
+
+  connection.query(sql, values, function(err, rows, fields) {
+    if (!!err){
+
+      console.log('Essayer!!!!!!!!!!!!!!!');
+      res.json(err);
+    }else{
+
+      console.log('Success Jungmin!!\n');
+      console.log(rows);
+      // console.log(fields);
+      // res.json(rows);
+      // res.json(fields);
+      // res.location('http://localhost/angularjs/login.html' );
+      // res.redirect('/humans');
+      res.redirect('http://localhost/angularjs/index.html#!/login');
+    }
+
+  });
+});
+
+
+// update pilote dans vol
+
+app.post('/api/addpilote',function(req, res){
+
+  console.log("quest ce que c'est?");
+  console.log(req.body);
+
+  var sql = "UPDATE vol SET pilote_id=? WHERE id=?";
+
+  var values = [
+    req.body.piloteid,
+    req.body.volid,
+
+
+  ]
+
+  ;
+
+
+  connection.query(sql, values, function(err, rows, fields) {
+    if (!!err){
+
+      console.log('Essayer!!!!!!!!!!!!!!!');
+      res.json(err);
+    }else{
+
+      console.log('Success Jungmin!!\n');
+      console.log(rows);
+      // console.log(fields);
+      // res.json(rows);
+      // res.json(fields);
+      // res.location('http://localhost/angularjs/login.html' );
+      // res.redirect('/humans');
+      res.redirect('http://localhost/angularjs/index.html#!/login');
+    }
+
+  });
+});
 
 
 

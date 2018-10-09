@@ -1,7 +1,7 @@
 
 <!doctype html>
 <html lang="en" ng-app="leeApp">
-<html lang="en" ng-app="leeApp">
+
   <head>
     <httpProtocol>
       <customHeaders>
@@ -41,22 +41,41 @@
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
 
       <h5 class="my-0 mr-md-auto font-weight-normal">
-          {% if is_granted('ROLE_USER') %}
-          PASSENGER!!
+          {% if is_granted('ROLE_ADMIN')%}
+          Admin!!
+          {% endif%}
+          {% if is_granted('ROLE_PILOTE')%}
+          Pilote!!
+          {% endif%}
+          {% if is_granted('ROLE_PASSENGER')%}
+          Passenger!!
+          {% endif%}
           {% if not app.user %}
           Enchante
           {% else %}
           {{app.user.username}}
           {% endif%}
-          {% endif %}
+
         </h5>
       <nav class="my-2 my-md-0 mr-md-3">
+
+
+          {% if is_granted('ROLE_ADMIN')%}
+        <a class="p-2 text-dark" href="/control/{{app.user.id}}">Control</a>
+        <a class="p-2 text-dark" href="{{path('gerevol')}}">GereVol</a>
+        <a class="p-2 text-dark" href="{{path('vollistadmin')}}">Vol</a>
+          {% endif%}
           {% if app.user %}
-        <a class="p-2 text-dark" href="/amis">Amis</a>
-        <a class="p-2 text-dark" href="{{path('vollists')}}">Profiter</a>
-        <a class="p-2 text-dark" href="{{path('vollists')}}">Participer</a>
+        <!-- <a class="p-2 text-dark" href="/amis">Amis</a> -->
+        <a class="p-2 text-dark" href="/edit/{{app.user.id}}">Edit</a>
+          {% if is_granted('ROLE_PASSENGER')%}
+        <a class="p-2 text-dark" href="{{path('vollistpas')}}">Vol</a>
+          {% endif%}
+          {% if is_granted('ROLE_PILOTE')%}
+        <a class="p-2 text-dark" href="{{path('vollistpilote')}}">Vol</a>
+          {% endif%}
           {% else %}
-        <a class="p-2 text-dark" href="/article">profiter</a>
+        <a class="p-2 text-dark" href="{{path('vollistadmin')}}">Vol</a>
           {% endif %}
         {% if not app.user %}
         <a class="p-2 text-dark" href="{{path('security_login')}}">Connexion</a>

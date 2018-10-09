@@ -16,4 +16,4 @@ SELECT user.username, t.username as pilotname,vol.volnum FROM (( user_vol INNER 
 
 ------------------------------------
 
-SELECT vol.volnum ,COUNT(*) as pasnum FROM (( user_vol INNER JOIN user ON user.id = user_vol.user_id ) INNER JOIN vol ON user_vol.vol_id=vol.id)LEFT JOIN user as t ON vol.pilote_id = t.id Group By volnum
+SELECT vol.volnum ,t.username as pilotename, COUNT(*) as pasnum FROM (( user_vol INNER JOIN user ON user.id = user_vol.user_id ) INNER JOIN vol ON user_vol.vol_id=vol.id)LEFT JOIN user as t ON vol.pilote_id = t.id Group By volnum

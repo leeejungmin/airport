@@ -9,9 +9,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 // use FOS\UserBundle\Model\User as BaseUser;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity(fields="username", message="Username already taken")
  * @UniqueEntity(
  * fields= {"email"},
  * message= "l'email que vous avez indique est deja utilise")
@@ -126,7 +128,7 @@ class User implements UserInterface
     *<code>
     *public function getRoles()
     *{
-    *   return array('ROLE_USER');
+    *   return array('ROLE_PILOTE');
     * }
     *</code>
     * Alternatively, the roles might be stored on a ``roles`` property,
@@ -137,10 +139,11 @@ class User implements UserInterface
     */
     public function getRoles(): ?array
     {
-        $tmRoles = $this->roles;
-
-        // if(in_array(needle:'USER_ROLE',$tmpRoles === false){
+        $tmpRoles = $this->roles;
+        // $tmpRoles = 'ROLE_PILOTE';
+        // if(in_array($tmpRoles === 'ROLE_PILOTE'){
           $tmpRoles[] = 'ROLE_USER';
+          // $tmpRoles[] = 'ROLE_PILOTE'
         // })
         return $tmpRoles;
     }
@@ -220,5 +223,5 @@ class User implements UserInterface
 
 
 
-  
+
   }

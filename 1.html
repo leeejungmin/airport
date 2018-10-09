@@ -31,7 +31,7 @@
   <p>Limit: [[vol.pasnum]] / 5</p>
   <hr>
   <div class="form-group">
-
+  <button type="submit" class="btn btn-success" ng-click="Achat(userid,vol.id)" >Achet!</button>
   </div>
 
   </li>
@@ -44,7 +44,10 @@
 
 
 
-{% block javascripts %}
+
+
+
+
 
 
 
@@ -79,7 +82,22 @@ leeApp.
 
     });
 
-
+  // $scope.Achat=function(userid, volid){
+  //         $scope.getuserid = sessionStorage.uid;
+  //         $http({
+  //           method:"POST",
+  //           url:"http://localhost:7000/api/addpas",
+  //           data: {piloteid, volid}
+  //         }).then(function(reponse){
+  //           // $scope.names = reponse.data;
+  //           // $scope.alertClass = 'success';
+  //           console.log(reponse.data);
+  //
+  //           $location.path('http://localhost:8000/vollist');
+  //         },
+  //         function onError(reponse)
+  //         { console.log("essayer jungmin encore")
+  //       });
 
   }]);
 
@@ -90,4 +108,3 @@ leeApp.
     </script>
 {% endblock %}
 </div>
-{% endblock %}
