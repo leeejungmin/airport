@@ -98,9 +98,35 @@ class MainController extends AbstractController
           $manager->persist($vol);
           $manager->flush();
 
-          return $this->redirectToRoute('vollists');
+          return $this->redirectToRoute('vollistpilote');
         }
         return $this->render('main/gerevol.html.twig', [
+
+
+          'form' => $form->createView(),
+          // 'user' => $user,
+        ]);
+    }
+    /**
+     * @Route("/control/{id}", name="control")
+     */
+    public function control( Vol $vol, Request $request, ObjectManager $manager)
+    {
+        // $user = $this->getUser();
+        $vol = new Vol();
+
+        $form = $this->createForm(VolRegisterType::class, $vol);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+
+
+          $manager->persist($vol);
+          $manager->flush();
+
+          return $this->redirectToRoute('vollists');
+        }
+        return $this->render('main/control.html.twig', [
 
 
           'form' => $form->createView(),

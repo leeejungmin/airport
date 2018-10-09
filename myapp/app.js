@@ -70,7 +70,41 @@ app.get('/api/vol',function(req, res){
 // monte la liste de vol avec pilote , passager
 app.get('/api/volnum',function(req, res){
 
-  connection.query("SELECT vol.id, vol.volnum ,t.username as pilotename, COUNT(*) as pasnum FROM (( user_vol INNER JOIN user ON user.id = user_vol.user_id ) INNER JOIN vol ON user_vol.vol_id=vol.id)LEFT JOIN user as t ON vol.pilote_id = t.id Group By volnum, t.username, vol.id;", function(err, rows, fields) {
+  connection.query("SELECT t.roles, vol.ville, vol.arrive, vol.depart, vol.id, vol.volnum ,t.username as pilotename, COUNT(*) as pasnum FROM (( user_vol INNER JOIN user ON user.id = user_vol.user_id ) INNER JOIN vol ON user_vol.vol_id=vol.id)LEFT JOIN user as t ON vol.pilote_id = t.id Group By volnum, t.username, vol.id;", function(err, rows, fields) {
+    if (!!err){
+
+      console.log('Essayer!!!!!!!!!!!!!!!');
+    }else{
+
+      console.log('Success Jungmin!!\n');
+      console.log(rows);
+      res.json(rows);
+    }
+
+  });
+
+});
+// monte la liste de vol pour admin
+app.get('/api/voladmin',function(req, res){
+
+  connection.query("SELECT vol.id, vol.volnum , vol.pilote_id FROM vol ;", function(err, rows, fields) {
+    if (!!err){
+
+      console.log('Essayer!!!!!!!!!!!!!!!');
+    }else{
+
+      console.log('Success Jungmin!!\n');
+      console.log(rows);
+      res.json(rows);
+    }
+
+  });
+
+});
+// monte la liste de vol pour admin
+app.get('/api/pilotelist',function(req, res){
+
+  connection.query("select * from user where json_contains(`roles`, '[\"ROLE_PILOTE\"]')" , function(err, rows, fields) {
     if (!!err){
 
       console.log('Essayer!!!!!!!!!!!!!!!');

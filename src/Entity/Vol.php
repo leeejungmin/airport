@@ -33,6 +33,21 @@ class Vol
      */
     private $passager;
 
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $ville;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $arrive;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $depart;
+
 
 
 
@@ -92,6 +107,42 @@ class Vol
             $this->passager->removeElement($passager);
             $passager->removePassager($this);
         }
+
+        return $this;
+    }
+
+    public function getVille(): ?string
+    {
+        return $this->ville;
+    }
+
+    public function setVille(?string $ville): self
+    {
+        $this->ville = $ville;
+
+        return $this;
+    }
+
+    public function getArrive(): ?\DateTimeInterface
+    {
+        return $this->arrive;
+    }
+
+    public function setArrive(?\DateTimeInterface $arrive): self
+    {
+        $this->arrive = $arrive;
+
+        return $this;
+    }
+
+    public function getDepart(): ?\DateTimeInterface
+    {
+        return $this->depart;
+    }
+
+    public function setDepart(?\DateTimeInterface $depart): self
+    {
+        $this->depart = $depart;
 
         return $this;
     }

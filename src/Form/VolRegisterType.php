@@ -13,6 +13,9 @@ class VolRegisterType extends AbstractType
     {
         $builder
             ->add('volnum')
+            ->add('ville')
+            ->add('arrive')
+            ->add('depart')
             // ->add('pilote')
 
         ;

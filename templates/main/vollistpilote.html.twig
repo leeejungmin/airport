@@ -26,9 +26,16 @@
       <li ng-repeat="vol in vols | filter: searchText |startFrom:currentPage*pageSize | limitTo:pageSize">
 
       <p>Volnumero: [[vol.volnum]]</p>
-
+      <div ng-if="vol.pilotename===null">
+      <p ng-style="myObj">Pilote: [[vol.pilotename]]</p>
+      </div>
+      <div ng-if="vol.pilotename!==null">
       <p>Pilote: [[vol.pilotename]]</p>
 
+      </div>
+      <p>ville: [[vol.ville]]</p>
+      <p>arrive: [[vol.arrive]]</p>
+      <p>depart: [[vol.depart]]</p>
       <p>Limit: [[vol.pasnum]] / 5</p>
       <hr>
       </li>
@@ -87,7 +94,13 @@ $scope.currentPage = 0;
      $scope.data.push("Item "+i);
  }
 
+ $scope.myObj = {
+    "color" : "white",
+    "background-color" : "coral",
+    "font-size" : "17px",
+    "padding" : "17px",
 
+  }
 
   $http.get("http://localhost:7000/api/volnum")
   .then(function (response)
