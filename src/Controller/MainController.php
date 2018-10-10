@@ -49,6 +49,7 @@ class MainController extends AbstractController
     public function vollistad()
     {
 
+
         $user = $this->getUser()->getid();
 
         $repo = $this->getDoctrine()->getRepository(Vol::class);
@@ -57,7 +58,7 @@ class MainController extends AbstractController
 
         return $this->render('main/vollistadmin.html.twig', [
 
-          'vollist' => $vollist,
+          'vols' => $vollist,
 
           'user' => $user,
         ]);
