@@ -177,3 +177,65 @@ JE reussir avec mon Seigneur!!!!!!1 Merci mon pere !!!!! merci... J'ai cherche p
 ------------------------------
 
 $location.path('http://localhost:8000/vollistpas');
+
+
+--------------------------------
+<p>Volnumero: [[vol.volnum]]</p>	  <p>Pilote: [[vol.pilotename]]</p>	  <p>Ville: [[vol.ville]]</p>	  <p>Arrive: [[vol.arrive]]</p>	<p>Depart: [[vol.depart]]</p>	
+<p>Pasnum: [[vol.pasnum]]/5</p>
+
+-----------------
+
+$scope.register = function(user, vol){
+     $http({
+            method:"POST",
+            url:"http://localhost:7000/api/passager",
+            data:{user, vol}
+          }).then(function(reponse){
+            $scope.names = reponse.data;
+
+            console.log(reponse.data);
+            console.log('vous etes avec mon Seigneur!!!Reussir');
+            $location.href = 'http://localhost:8000/';
+
+          });
+ }
+
+
+-----------------------
+
+
+      <hr>
+      <ul>
+      <li ng-repeat="vol in vols | filter: searchText |startFrom:currentPage*pageSize | limitTo:pageSize">
+
+      <p>Volnumero: [[vol.volnum]]</p>
+      <div ng-if="vol.pilotename===null">
+      <p ng-style="myObj">Pilote: [[vol.pilotename]]</p>
+      </div>
+      <div ng-if="vol.pilotename!==null">
+      <p>Pilote: [[vol.pilotename]]</p>
+
+      </div>
+      <p>ville: [[vol.ville]]</p>
+      <p>arrive: [[vol.arrive]]</p>
+      <p>depart: [[vol.depart]]</p>
+      <p>Limit: [[vol.pasnum]] / 5</p>
+      <button type"submit" class="btn btn-danger" ng-click="register( user , vol.id )">Reserver</button>
+      <p>Userid: [[user]]</p>
+      <hr>
+      </li>
+      </ul>
+      <button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+      Previous
+      </button>
+      [[currentPage+1]]/[[numberOfPages()]]
+      <button ng-disabled="currentPage >= data.length/pageSize - 1" ng-click="currentPage=currentPage+1">
+      Next
+      </button>
+
+----------------------------------------------------------
+SELECT  vol.ville, vol.arrive, vol.depart, vol.id, vol.volnum ,t.username as pilotename, COUNT(*) as pasnum FROM  vol  LEFT OUTER JOIN user_vol ON user_vol.vol_id=vol.id LEFT OUTER JOIN user as t ON vol.pilote_id = t.id Group By volnum, t.username, vol.id;
+<button type"submit" class="btn btn-default" ng-click="register( user , vol.id )">Edit</button>
+
+tu reussir encore!! avec Seigneur!!
+  <button type"submit" class="btn btn-danger" ng-click="del(  vol.id )">Del</button>

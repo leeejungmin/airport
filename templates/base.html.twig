@@ -12,6 +12,7 @@
 
             </customHeaders>
           </httpProtocol>
+    <base href="/" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -40,7 +41,7 @@
 
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
 
-      <h5 class="my-0 mr-md-auto font-weight-normal">
+      <h5 class="my-0 mr-md-auto font-weight-normal" ><font size="7" color="orange" weight="bold" >
           {% if is_granted('ROLE_ADMIN')%}
           Admin!!
           {% endif%}
@@ -55,7 +56,7 @@
           {% else %}
           {{app.user.username}}
           {% endif%}
-
+        </font>
         </h5>
       <nav class="my-2 my-md-0 mr-md-3">
 
@@ -64,6 +65,7 @@
         <!-- <a class="p-2 text-dark" href="/control/{{app.user.id}}">Control</a> -->
         <a class="p-2 text-dark" href="{{path('gerevol')}}">GereVol</a>
         <a class="p-2 text-dark" href="{{path('vollistadmin')}}">Vol</a>
+        <a class="p-2 text-dark" href="{{path('show')}}">Show</a>
 
           {% endif%}
           {% if is_granted('ROLE_PASSENGER')%}

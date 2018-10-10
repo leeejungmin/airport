@@ -59,6 +59,10 @@ class Vol
 
 
 
+    public function getid(): ?int
+    {
+        return $this->id;
+    }
     public function getVolnum(): ?string
     {
         return $this->volnum;

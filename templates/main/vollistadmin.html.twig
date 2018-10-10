@@ -56,9 +56,8 @@
       <div ng-if="vol.pasnum!==null">
       <p>Pasnum: [[vol.pasnum]]/5</p>
       </div>
-      <button type"submit" class="btn btn-default" ng-click="register( user , vol.id )">Edit</button>
-      <button type"submit" class="btn btn-danger" ng-click="del(  vol.id )">Del</button>
-      <p>Userid: [[user]]</p>
+    
+
 
       <hr>
       </li>
@@ -105,12 +104,14 @@ leeApp.
   config([ '$routeProvider','$interpolateProvider', function($routeProvider, $interpolateProvider) {
   $interpolateProvider.startSymbol('[[');
   $interpolateProvider.endSymbol(']]');
+
+
 }])
 
-.value('User', '{{user}}')
-.controller('amischerchController',['$scope', '$http', function($scope, $http, $location, User){
 
-$scope.currentPage = 0;
+.controller('amischerchController',['$scope', '$http','$location', function( $scope, $http, $location, User){
+
+ $scope.currentPage = 0;
  $scope.pageSize = 3;
  $scope.data = [];
  $scope.numberOfPages=function(){
@@ -119,7 +120,9 @@ $scope.currentPage = 0;
  for (var i=0; i<45; i++) {
      $scope.data.push("Item "+i);
  }
-
+  $scope.move=function(sit){
+    $location.path(sit);
+  }
  $scope.myObj = {
     "color" : "white",
     "background-color" : "coral",
@@ -138,7 +141,7 @@ $scope.currentPage = 0;
 
              console.log(reponse.data);
              console.log('vous etes avec mon Seigneur!!!Reussir');
-             $window.location.href = 'http://localhost:8000/';
+
 
            });
   }
@@ -146,13 +149,12 @@ $scope.currentPage = 0;
       $http({
              method:"POST",
              url:"http://localhost:7000/api/passager",
-             data:id
+             data:{id}
            }).then(function(reponse){
              $scope.names = reponse.data;
 
              console.log(reponse.data);
              console.log('vous etes avec mon Seigneur!!!Reussir');
-             $window.location.href = 'http://localhost:8000/';
 
            });
   }
@@ -173,12 +175,17 @@ $scope.currentPage = 0;
 
 
   }])
+.factory('Thing','$window', function ($window) {
+      $scope.things =function(sit){
+        $window.location.href(sit);
+      }
+        })
 
-  .filter('startFrom', function() {
-    return function(input, start) {
-        start = +start; //parse to int
-        return input.slice(start);
-    }
+.filter('startFrom', function() {
+  return function(input, start) {
+      start = +start; //parse to int
+      return input.slice(start);
+  }
 });
 
 

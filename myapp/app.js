@@ -326,7 +326,7 @@ app.get('/api/user/:user_id',function(req, res){
 
       console.log('Success Jungmin!!\n');
       console.log(rows);
-      res.render('http://localhost/angularjs/index.html#!/login',{
+      res.render('http://localhost:8000/voledit/index.html#!/login',{
         username: req.body.username,
         email: req.body.email,
         password: req.body.password,

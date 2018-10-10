@@ -32,7 +32,7 @@
       <div ng-if="vol.pilote_id!==null">
       <p>Pilote: [[vol.pilote_id]]</p>
       </div>
-      <div ng-if="vol.pilote_id!==user">
+      <div ng-if="vol.pilote_id==user">
       <p ng-style="myGood">C'est moi!</p>
       </div>
 
@@ -139,19 +139,23 @@ leeApp.
 
              console.log(reponse.data);
              console.log('vous etes avec mon Seigneur!!!Reussir');
-             $location.href = 'http://localhost:8000/';
+              $route.reload();
 
            });
   }
 
   }])
 
-  .filter('startFrom', function() {
-    return function(input, start) {
-        start = +start; //parse to int
-        return input.slice(start);
-    }
-});
+.filter('startFrom', function() {
+  return function(input, start) {
+      start = +start; //parse to int
+      return input.slice(start);
+  }
+})
+
+.service('move', function(){
+
+})
 
 
 

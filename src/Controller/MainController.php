@@ -40,7 +40,7 @@ class MainController extends AbstractController
 
           'vollist' => $vollist,
 
-        
+
         ]);
     }
     /**
@@ -101,6 +101,46 @@ class MainController extends AbstractController
         ]);
     }
     /**
+     * @Route("/show", name="show")
+     */
+    public function show()
+    {
+
+        $user = $this->getUser()->getid();
+
+        $repo = $this->getDoctrine()->getRepository(Vol::class);
+
+        $vollist = $repo->findAll();
+
+        return $this->render('main/show.html.twig', [
+
+          'vols' => $vollist,
+
+          'user' => $user,
+        ]);
+    }
+    /**
+     * @Route("/del/{id}", name="del")
+     */
+    public function del($id)
+    {
+
+        $article = new Vol();
+        $em = $this->getDoctrine()->getManager();
+
+        $post = $em->getRepository($article)->find($id);
+
+
+
+
+
+        $em->remove($post);
+        $em->flush();
+
+        return $this->redirectToRoute('show');
+
+    }
+    /**
      * @Route("/gerevol", name="gerevol")
      */
     public function gere( Request $request, ObjectManager $manager)
@@ -127,12 +167,12 @@ class MainController extends AbstractController
         ]);
     }
     /**
-     * @Route("/control", name="control")
+     * @Route("/control/{id}", name="control")
      */
-    public function control( Request $request, ObjectManager $manager)
+    public function control(Vol $vol, Request $request, ObjectManager $manager)
     {
         // $user = $this->getUser();
-        $vol = new Vol();
+
 
         $form = $this->createForm(VolRegisterType::class, $vol);
         $form->handleRequest($request);
