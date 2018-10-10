@@ -16,7 +16,7 @@ class VolRegisterType extends AbstractType
             ->add('ville')
             ->add('arrive')
             ->add('depart')
-            // ->add('pilote')
+            ->add('pilote')
 
         ;
     }

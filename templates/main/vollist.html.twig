@@ -21,24 +21,44 @@
 </div>
 
 
+      <hr>
+      <ul>
+      <li ng-repeat="vol in vols | filter: searchText |startFrom:currentPage*pageSize | limitTo:pageSize">
 
-  <hr>
-  <li  ng-repeat= "vol in vols | filter: searchText">
-  <p>Volnumero: [[vol.volnum]]</p>
+      <p>Volnumero: [[vol.volnum]]</p>
+      <p>Pilote: [[vol.pilotename]]</p>
+      <p>Ville: [[vol.ville]]</p>
+      <p>Arrive: [[vol.arrive]]</p>
+      <p>Depart: [[vol.depart]]</p>
+      <div ng-if="vol.pasnum===5">
+      <p ng-style="myObj">Pasnum: [[vol.pasnum]]/5</p>
+      </div>
+      <div ng-if="vol.pasnum===4">
+      <p ng-style="mybon">Pasnum: [[vol.pasnum]]/5</p>
+      </div>
+      <div ng-if="vol.pasnum<4">
+      <p ng-style="myGood">Pasnum: [[vol.pasnum]]/5</p>
+      </div>
 
-  <p>Pilote: [[vol.pilotename]]</p>
+      <hr>
+      </li>
+      </ul>
+      <button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+      Previous
+      </button>
+      [[currentPage+1]]/[[numberOfPages()]]
+      <button ng-disabled="currentPage >= data.length/pageSize - 1" ng-click="currentPage=currentPage+1">
+      Next
+      </button>
 
-  <p>Limit: [[vol.pasnum]] / 5</p>
-  <hr>
-  <div class="form-group">
-
-  </div>
-
-  </li>
-
-  </div>
 
 {% endverbatim %}
+
+<hr>
+
+
+
+
 
 
 
@@ -50,10 +70,12 @@
 
 
 
+<script src="http://localhost/symfonyairport/searchsort.js"></script>
 
 
 
 <script>
+
 
 
 var leeApp = angular.module('leeApp', ['ngRoute']);
@@ -68,11 +90,46 @@ leeApp.
 
 .controller('amischerchController',['$scope', '$http', function($scope, $http, $location){
 
-  $scope.amis=[];
+$scope.currentPage = 0;
+ $scope.pageSize = 3;
+ $scope.data = [];
+ $scope.numberOfPages=function(){
+     return Math.ceil($scope.data.length/$scope.pageSize);
+ }
+ for (var i=0; i<45; i++) {
+     $scope.data.push("Item "+i);
+ }
+
+ $scope.myObj = {
+    "color" : "white",
+    "background-color" : "coral",
+    "font-size" : "17px",
+    "padding" : "17px",
+
+  }
+
+ $scope.myGood = {
+    "color" : "white",
+    "background-color" : "#33cc33",
+    "font-size" : "17px",
+    "padding" : "17px",
+
+  }
+ $scope.mybon = {
+    "color" : "white",
+    "background-color" : "orange",
+    "font-size" : "17px",
+    "padding" : "17px",
+
+  }
 
   $http.get("http://localhost:7000/api/volnum")
   .then(function (response)
     { console.log(response.data);
+     console.log('reussir!!');
+
+
+
       $scope.vols = response.data;},
     function onError(reponse)
     { console.log("essayer jungmin encore");
@@ -81,7 +138,14 @@ leeApp.
 
 
 
-  }]);
+  }])
+
+  .filter('startFrom', function() {
+    return function(input, start) {
+        start = +start; //parse to int
+        return input.slice(start);
+    }
+});
 
 
 

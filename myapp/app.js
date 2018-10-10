@@ -101,6 +101,23 @@ app.get('/api/voladmin',function(req, res){
   });
 
 });
+
+app.get('/api/admingere',function(req, res){
+
+  connection.query("SELECT vol.ville, vol.arrive, vol.depart, vol.id, vol.volnum ,t.username as pilotename, COUNT(*) as pasnum FROM  vol  LEFT OUTER JOIN user_vol ON user_vol.vol_id=vol.id LEFT OUTER JOIN user as t ON vol.pilote_id = t.id Group By volnum, t.username, vol.id ;", function(err, rows, fields) {
+    if (!!err){
+
+      console.log('Essayer!!!!!!!!!!!!!!!');
+    }else{
+
+      console.log('Success Jungmin!!\n');
+      console.log(rows);
+      res.json(rows);
+    }
+
+  });
+
+});
 // monte la liste de vol pour admin
 app.get('/api/pilotelist',function(req, res){
 
@@ -122,7 +139,7 @@ app.get('/api/pilotelist',function(req, res){
 
 // ajouter pas base de donne
 
-app.post('/api/addpas',function(req, res){
+app.post('/api/passager',function(req, res){
 
   console.log("quest ce que c'est?");
   console.log(req.body);
@@ -130,8 +147,8 @@ app.post('/api/addpas',function(req, res){
   var sql = 'INSERT INTO user_vol (user_id,vol_id) VALUES (?,?);';
 
   var values = [
-    req.body.userid,
-    req.body.amisid,
+    req.body.user,
+    req.body.vol,
 
 
   ]
@@ -153,10 +170,42 @@ app.post('/api/addpas',function(req, res){
       // res.json(fields);
       // res.location('http://localhost/angularjs/login.html' );
       // res.redirect('/humans');
-      res.redirect('http://localhost/angularjs/index.html#!/login');
+      res.redirect('http://localhost:8000/');
     }
 
   });
+});
+app.post('/api/delvol/',function(req, res){
+
+  console.log("quest ce que c'est?");
+  console.log(req.body);
+
+  var values = [
+
+    req.body.id,
+
+  ]
+;
+
+  var sql = "DELETE FROM vol WHERE id=(?)";
+  connection.query(sql,values, function(err, rows, fields) {
+    if (!!err){
+
+      console.log('Essayer!!!!!!!!!!!!!!!');
+      res.json(err);
+    }else{
+
+      console.log('Success Jungmin!!\n');
+      console.log(rows);
+      // console.log(fields);
+      // res.json(fields);
+      res.json(rows);
+
+    };
+
+  });
+
+
 });
 
 
@@ -170,8 +219,8 @@ app.post('/api/addpilote',function(req, res){
   var sql = "UPDATE vol SET pilote_id=? WHERE id=?";
 
   var values = [
-    req.body.piloteid,
-    req.body.volid,
+    req.body.user,
+    req.body.vol,
 
 
   ]
@@ -193,7 +242,7 @@ app.post('/api/addpilote',function(req, res){
       // res.json(fields);
       // res.location('http://localhost/angularjs/login.html' );
       // res.redirect('/humans');
-      res.redirect('http://localhost/angularjs/index.html#!/login');
+      // res.redirect('http://localhost/angularjs/index.html#!/login');
     }
 
   });

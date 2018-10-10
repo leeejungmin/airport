@@ -61,21 +61,22 @@
 
 
           {% if is_granted('ROLE_ADMIN')%}
-        <a class="p-2 text-dark" href="/control/{{app.user.id}}">Control</a>
+        <!-- <a class="p-2 text-dark" href="/control/{{app.user.id}}">Control</a> -->
         <a class="p-2 text-dark" href="{{path('gerevol')}}">GereVol</a>
         <a class="p-2 text-dark" href="{{path('vollistadmin')}}">Vol</a>
+
           {% endif%}
-          {% if app.user %}
-        <!-- <a class="p-2 text-dark" href="/amis">Amis</a> -->
-        <a class="p-2 text-dark" href="/edit/{{app.user.id}}">Edit</a>
           {% if is_granted('ROLE_PASSENGER')%}
         <a class="p-2 text-dark" href="{{path('vollistpas')}}">Vol</a>
           {% endif%}
           {% if is_granted('ROLE_PILOTE')%}
         <a class="p-2 text-dark" href="{{path('vollistpilote')}}">Vol</a>
           {% endif%}
+          {% if app.user %}
+          <!-- <a class="p-2 text-dark" href="/amis">Amis</a> -->
+          <a class="p-2 text-dark" href="/edit/{{app.user.id}}">Edit</a>
           {% else %}
-        <a class="p-2 text-dark" href="{{path('vollistadmin')}}">Vol</a>
+          <a class="p-2 text-dark" href="{{path('vollist')}}">Vol</a>
           {% endif %}
         {% if not app.user %}
         <a class="p-2 text-dark" href="{{path('security_login')}}">Connexion</a>

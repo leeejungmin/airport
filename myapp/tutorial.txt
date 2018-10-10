@@ -57,3 +57,5 @@ $http.post("http://localhost:7000/api/users")
 il faut utiliser vagule '' var sql = ''; 
 
 mais ca marche avec parenthese??????
+
+  <p ng-style="vol.pilotename === null && {'background-color': 'red'}>

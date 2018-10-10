@@ -175,3 +175,5 @@ onclick="window.location.href='/registrationPas'"
 
 JE reussir avec mon Seigneur!!!!!!1 Merci mon pere !!!!! merci... J'ai cherche par le site qui est simple est , juste coller ce qui est monte,, en suit, juste changer un petite peu...!!!!!!!! MErci!! c'est grace a votre sagesse!!
 ------------------------------
+
+$location.path('http://localhost:8000/vollistpas');

@@ -31,8 +31,18 @@
       <p>depart: [[vol.depart]]</p>
 
       <p>Pilote: [[vol.pilotename]]</p>
-
-      <p>Limit: [[vol.pasnum]] / 5</p>
+      <div ng-if="vol.pasnum===5">
+      <p ng-style="myObj">Pasnum: [[vol.pasnum]]/5</p>
+      </div>
+      <div ng-if="vol.pasnum === 4">
+      <p ng-style="mybon">Pasnum: [[vol.pasnum]]/5</p>
+      </div>
+      <div ng-if="vol.pasnum<4">
+      <p ng-style="myGood">Pasnum: [[vol.pasnum]]/5</p>
+      </div>
+      <hr>
+      <button type"submit" class="btn btn-danger" ng-click="register( user , vol.id )">Reserver</button>
+      <p>Userid: [[user]]</p>
       <hr>
       </li>
       </ul>
@@ -67,20 +77,29 @@
 
 
 <script>
-
+var User = {{user}};
 var leeApp = angular.module('leeApp', ['ngRoute']);
 
 
 leeApp.
   config([ '$routeProvider','$interpolateProvider', function($routeProvider, $interpolateProvider) {
+
+  $routeProvider.
+      when('/control', {
+
+        templateUrl:'/control',
+
+      });
+
   $interpolateProvider.startSymbol('[[');
   $interpolateProvider.endSymbol(']]');
 }])
 
+.value('User','{{user}}')
+.controller('amischerchController',['$scope', '$http', '$location' ,function( $scope, $http, $location, User){
 
-.controller('amischerchController',['$scope', '$http', function($scope, $http, $location){
-
-$scope.currentPage = 0;
+ $scope.user = {{user}};
+ $scope.currentPage = 0;
  $scope.pageSize = 3;
  $scope.data = [];
  $scope.numberOfPages=function(){
@@ -89,13 +108,49 @@ $scope.currentPage = 0;
  for (var i=0; i<45; i++) {
      $scope.data.push("Item "+i);
  }
+ $scope.myObj = {
+    "color" : "white",
+    "background-color" : "coral",
+    "font-size" : "17px",
+    "padding" : "17px",
 
+  };
 
+ $scope.myGood = {
+    "color" : "white",
+    "background-color" : "#33cc33",
+    "font-size" : "17px",
+    "padding" : "17px",
+
+  };
+ $scope.mybon = {
+    "color" : "white",
+    "background-color" : "orange",
+    "font-size" : "17px",
+    "padding" : "17px",
+
+  };
+ $scope.register = function(user, vol){
+     $http({
+            method:"POST",
+            url:"http://localhost:7000/api/passager",
+            data:{user, vol}
+          }).then(function(reponse){
+            $scope.names = reponse.data;
+
+            console.log(reponse.data);
+            console.log('vous etes avec mon Seigneur!!!Reussir');
+            $location.href = 'http://localhost:8000/';
+
+          });
+ }
 
   $http.get("http://localhost:7000/api/volnum")
   .then(function (response)
     { console.log(response.data);
      console.log('reussir!!');
+     console.log(User);
+
 
       $scope.vols = response.data;},
     function onError(reponse)

@@ -25,18 +25,37 @@ use App\Form\VolRegisterType;
 class MainController extends AbstractController
 {
     /**
-     * @Route("/vollistadmin", name="vollistadmin")
+     * @Route("/vollist", name="vollist")
      */
-    public function vollistad()
+    public function vollist()
     {
 
-        $user = $this->getUser();
+
 
         $repo = $this->getDoctrine()->getRepository(Vol::class);
 
         $vollist = $repo->findAll();
 
         return $this->render('main/vollist.html.twig', [
+
+          'vollist' => $vollist,
+
+        
+        ]);
+    }
+    /**
+     * @Route("/vollistadmin", name="vollistadmin")
+     */
+    public function vollistad()
+    {
+
+        $user = $this->getUser()->getid();
+
+        $repo = $this->getDoctrine()->getRepository(Vol::class);
+
+        $vollist = $repo->findAll();
+
+        return $this->render('main/vollistadmin.html.twig', [
 
           'vollist' => $vollist,
 
@@ -49,7 +68,7 @@ class MainController extends AbstractController
     public function vollistpas()
     {
 
-        $user = $this->getUser();
+        $user = $this->getUser()->getid();;
 
         $repo = $this->getDoctrine()->getRepository(Vol::class);
 
@@ -68,7 +87,7 @@ class MainController extends AbstractController
     public function vollistpilote()
     {
 
-        $user = $this->getUser();
+        $user = $this->getUser()->getid();
 
         $repo = $this->getDoctrine()->getRepository(Vol::class);
 
@@ -98,7 +117,7 @@ class MainController extends AbstractController
           $manager->persist($vol);
           $manager->flush();
 
-          return $this->redirectToRoute('vollistpilote');
+          return $this->redirectToRoute('vollistpas');
         }
         return $this->render('main/gerevol.html.twig', [
 
@@ -108,9 +127,9 @@ class MainController extends AbstractController
         ]);
     }
     /**
-     * @Route("/control/{id}", name="control")
+     * @Route("/control", name="control")
      */
-    public function control( Vol $vol, Request $request, ObjectManager $manager)
+    public function control( Request $request, ObjectManager $manager)
     {
         // $user = $this->getUser();
         $vol = new Vol();
@@ -124,7 +143,33 @@ class MainController extends AbstractController
           $manager->persist($vol);
           $manager->flush();
 
-          return $this->redirectToRoute('vollists');
+          return $this->redirectToRoute('vollistadmin');
+        }
+        return $this->render('main/control.html.twig', [
+
+
+          'form' => $form->createView(),
+          // 'user' => $user,
+        ]);
+    }
+    /**
+     * @Route("/voledit/{id}", name="voledit")
+     */
+    public function voledit( Vol $vol, Request $request, ObjectManager $manager)
+    {
+        // $user = $this->getUser();
+
+
+        $form = $this->createForm(VolRegisterType::class, $vol);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+
+
+          $manager->persist($vol);
+          $manager->flush();
+
+          return $this->redirectToRoute('vollistadmin');
         }
         return $this->render('main/control.html.twig', [
 
