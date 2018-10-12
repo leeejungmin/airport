@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Forms;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\User;
-use App\Entity\Vol;
+use App\Entity\volfake;
 
 
 
@@ -19,7 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\ PasswordType;
 // use App\Form\ UserregisterType;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use App\Form\VolRegisterType;
+use App\Form\volfakeRegisterType;
 
 
 class MainController extends AbstractController
@@ -32,7 +32,7 @@ class MainController extends AbstractController
 
 
 
-        $repo = $this->getDoctrine()->getRepository(Vol::class);
+        $repo = $this->getDoctrine()->getRepository(volfake::class);
 
         $vollist = $repo->findAll();
 
@@ -52,7 +52,7 @@ class MainController extends AbstractController
 
         $user = $this->getUser()->getid();
 
-        $repo = $this->getDoctrine()->getRepository(Vol::class);
+        $repo = $this->getDoctrine()->getRepository(volfake::class);
 
         $vollist = $repo->findAll();
 
@@ -71,7 +71,7 @@ class MainController extends AbstractController
 
         $user = $this->getUser()->getid();;
 
-        $repo = $this->getDoctrine()->getRepository(Vol::class);
+        $repo = $this->getDoctrine()->getRepository(volfake::class);
 
         $vollist = $repo->findAll();
 
@@ -90,7 +90,7 @@ class MainController extends AbstractController
 
         $user = $this->getUser()->getid();
 
-        $repo = $this->getDoctrine()->getRepository(Vol::class);
+        $repo = $this->getDoctrine()->getRepository(volfake::class);
 
         $vollist = $repo->findAll();
 
@@ -109,7 +109,7 @@ class MainController extends AbstractController
 
         $user = $this->getUser()->getid();
 
-        $repo = $this->getDoctrine()->getRepository(Vol::class);
+        $repo = $this->getDoctrine()->getRepository(volfake::class);
 
         $vollist = $repo->findAll();
 
@@ -126,7 +126,7 @@ class MainController extends AbstractController
     public function del($id)
     {
 
-        $article = new Vol();
+        $article = new volfake();
         $em = $this->getDoctrine()->getManager();
 
         $post = $em->getRepository($article)->find($id);
@@ -147,9 +147,9 @@ class MainController extends AbstractController
     public function gere( Request $request, ObjectManager $manager)
     {
         // $user = $this->getUser();
-        $vol = new Vol();
+        $vol = new volfake();
 
-        $form = $this->createForm(VolRegisterType::class, $vol);
+        $form = $this->createForm(volfakeRegisterType::class, $vol);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
@@ -170,12 +170,12 @@ class MainController extends AbstractController
     /**
      * @Route("/control/{id}", name="control")
      */
-    public function control(Vol $vol, Request $request, ObjectManager $manager)
+    public function control(volfake $vol, Request $request, ObjectManager $manager)
     {
         // $user = $this->getUser();
 
 
-        $form = $this->createForm(VolRegisterType::class, $vol);
+        $form = $this->createForm(volfakeRegisterType::class, $vol);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
@@ -196,12 +196,12 @@ class MainController extends AbstractController
     /**
      * @Route("/voledit/{id}", name="voledit")
      */
-    public function voledit( Vol $vol, Request $request, ObjectManager $manager)
+    public function voledit( volfake $vol, Request $request, ObjectManager $manager)
     {
         // $user = $this->getUser();
 
 
-        $form = $this->createForm(VolRegisterType::class, $vol);
+        $form = $this->createForm(volfakeRegisterType::class, $vol);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
