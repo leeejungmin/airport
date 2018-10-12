@@ -2,42 +2,12 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
-<?php
-
-// api/src/Entity/Album.php
-
-namespace App\Entity;
-
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ApiResource(
- *      collectionOperations = {
- *          "get"={
- *              "method"="GET",
- *              "path"="/album.{_format}",
- *          },
- *          "post"={
- *              "method"="POST",
- *              "path"="/album.{_format}",
- *          },
- *      },
- *     itemOperations={
- *          "get"={
- *              "method"="GET",
- *              "path"="/album/{id}.{_format}",
- *          },
-+*          "put"={
-+*              "path"="/album/{id}.{_format}",
-+*          },
- *     }
- * )
  * @ORM\Entity()
  * @ApiResource(iri="http://schema.org/MusicAlbum")
  */
