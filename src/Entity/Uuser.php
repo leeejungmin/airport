@@ -19,7 +19,7 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
  * message= "l'email que vous avez indique est deja utilise")
  * @ORM\Table(name="user")
  */
-class User implements UserInterface
+class Uuser implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -55,14 +55,10 @@ class User implements UserInterface
     private $roles = [];
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Vol", mappedBy="pilote")
+     * @ORM\OneToOne(targetEntity="App\Entity\Pilote", cascade={"persist", "remove"})
      */
     private $pilote;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Vol", inversedBy="passager")
-     */
-    private $passager;
 
 
 
@@ -164,62 +160,9 @@ class User implements UserInterface
     public function eraseCredentials() {}
     public function getSalt() {}
 
-    /**
-     * @return Collection|Vol[]
-     */
-    public function getPilote(): Collection
-    {
-        return $this->pilote;
-    }
 
-    public function addPilote(Vol $pilote): self
-    {
-        if (!$this->pilote->contains($pilote)) {
-            $this->pilote[] = $pilote;
-            $pilote->setPilote($this);
-        }
 
-        return $this;
-    }
 
-    public function removePilote(Vol $pilote): self
-    {
-        if ($this->pilote->contains($pilote)) {
-            $this->pilote->removeElement($pilote);
-            // set the owning side to null (unless already changed)
-            if ($pilote->getPilote() === $this) {
-                $pilote->setPilote(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Vol[]
-     */
-    public function getPassager(): Collection
-    {
-        return $this->passager;
-    }
-
-    public function addPassager(Vol $passager): self
-    {
-        if (!$this->passager->contains($passager)) {
-            $this->passager[] = $passager;
-        }
-
-        return $this;
-    }
-
-    public function removePassager(Vol $passager): self
-    {
-        if ($this->passager->contains($passager)) {
-            $this->passager->removeElement($passager);
-        }
-
-        return $this;
-    }
 
     /**
      * Generates the magic method
@@ -230,6 +173,18 @@ class User implements UserInterface
         return $this->username;
         // to show the id of the Category in the select
         // return $this->id;
+    }
+
+    public function getPilote(): ?Pilote
+    {
+        return $this->pilote;
+    }
+
+    public function setPilote(?Pilote $pilote): self
+    {
+        $this->pilote = $pilote;
+
+        return $this;
     }
 
 

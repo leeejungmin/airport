@@ -22,13 +22,10 @@ class Pilote
 
 
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\User", cascade={"persist", "remove"})
-     */
-    private $user;
+  
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Vol", mappedBy="pilot")
+     * @ORM\OneToMany(targetEntity="App\Entity\Volfake", mappedBy="pilot")
      */
     private $vol;
 
@@ -93,7 +90,7 @@ class Pilote
         return $this;
     }
 
-  
+
 
 
 

@@ -7,16 +7,11 @@ use ApiPlatform\Core\Annotation\ApiProperty;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity()
- * @ApiResource(iri="http://schema.org/MusicAlbum")
- */
-class Album
-{
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\VolRepository")
  */
-class Vol
+class Volfake
 {
     /**
      * @ORM\Id()

@@ -19,12 +19,12 @@ class Passenger
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Vol", inversedBy="passengers")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Volfake", inversedBy="passengers")
      */
     private $vol;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\User", mappedBy="passenger", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Uuser", mappedBy="passenger", cascade={"persist", "remove"})
      */
     private $userr;
 
@@ -48,7 +48,7 @@ class Passenger
         return $this->vol;
     }
 
-    public function addVol(Vol $vol): self
+    public function addVol(Volfake $vol): self
     {
         if (!$this->vol->contains($vol)) {
             $this->vol[] = $vol;
@@ -57,7 +57,7 @@ class Passenger
         return $this;
     }
 
-    public function removeVol(Vol $vol): self
+    public function removeVol(Volfake $vol): self
     {
         if ($this->vol->contains($vol)) {
             $this->vol->removeElement($vol);
@@ -67,12 +67,12 @@ class Passenger
     }
 
 
-    public function getUserr(): ?User
+    public function getUserr(): ?Uuser
     {
         return $this->userr;
     }
 
-    public function setUserr(?User $userr): self
+    public function setUserr(?Uuser $userr): self
     {
         $this->userr = $userr;
 
