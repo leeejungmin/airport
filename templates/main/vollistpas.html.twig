@@ -41,8 +41,13 @@
       <p ng-style="myGood">Pasnum: [[vol.pasnum]]/5</p>
       </div>
       <hr>
+      <div ng-if="vol.pasnum===5">
+        <p ng-style="myObj">Plein</p>
+      </div>
+      <div ng-if="vol.pasnum<5">
       <button type"submit" class="btn btn-danger" ng-click="register( user , vol.id )">Reserver</button>
-      <p>Userid: [[user]]</p>
+      
+      </div>
       <hr>
       </li>
       </ul>
@@ -141,7 +146,7 @@ leeApp.
             console.log(reponse.data);
             console.log('vous etes avec mon Seigneur!!!Reussir');
             $route.reload();
-          
+
           });
  }
 
