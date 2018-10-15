@@ -2,14 +2,14 @@
 
 
 {%  block body %}
+<div ng-app="leeApp">
 <div class="container">
 <div class="row">
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<div ng-app="leeApp">
 {% verbatim %}
 
-<div class="form-group " ng-controller="amischerchController" >
+<div class="col-sm-8 " ng-controller="amischerchController" >
 
 <div class="navbar navbar-default">
 
@@ -85,8 +85,7 @@
 
 
 
-
-<div class="row">
+<div class="col-sm-4">
 
 {% for vol in vols %}
 <hr>
@@ -97,16 +96,14 @@
 
 <hr>
 {% endfor %}
-</div>
-
-</div>
+</div></div></div>
 
 
 
 
 
 
-</div>
+
 
 
 
