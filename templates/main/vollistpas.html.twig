@@ -42,11 +42,11 @@
       </div>
       <hr>
       <div ng-if="vol.pasnum===5">
-        <p ng-style="myObj">Plein</p>
+        <p ng-style="myP">Plein</p>
       </div>
       <div ng-if="vol.pasnum<5">
       <button type"submit" class="btn btn-danger" ng-click="register( user , vol.id )">Reserver</button>
-      
+
       </div>
       <hr>
       </li>
@@ -116,6 +116,13 @@ leeApp.
  $scope.myObj = {
     "color" : "white",
     "background-color" : "coral",
+    "font-size" : "17px",
+    "padding" : "17px",
+
+  };
+ $scope.myP = {
+    "color" : "white",
+    "background-color" : "red",
     "font-size" : "17px",
     "padding" : "17px",
 
