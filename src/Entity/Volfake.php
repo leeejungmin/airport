@@ -22,9 +22,6 @@ class Volfake
 
 
 
-
-
-
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Passenger", mappedBy="vol")
      */
@@ -79,17 +76,7 @@ class Volfake
         return $this;
     }
 
-    public function getVolnum(): ?string
-    {
-        return $this->volnum;
-    }
 
-    public function setVolnum(string $volnum): self
-    {
-        $this->volnum = $volnum;
-
-        return $this;
-    }
 
     public function getPilot(): ?Pilote
     {

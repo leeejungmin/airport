@@ -12,10 +12,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
-use App\Entity\Uuser;
+use App\Entity\User;
 
 
-use App\Form\UuserregisterType;
+
 use App\Form\PasregisterType;
 use App\Form\PiloteregisterType;
 
@@ -26,7 +26,7 @@ class SecurityController extends Controller
     /**
      * @Route("/edit/{id}", name="edit")
      */
-    public function edit(Uuser $user, Request $request, ObjectManager $manager )
+    public function edit(User $user, Request $request, ObjectManager $manager )
     {
       // $user = new User();
       $form = $this->createForm(PasregisterType::class, $user);
@@ -53,8 +53,8 @@ class SecurityController extends Controller
     //  */
     // public function inscription(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
     // {
-    //   $user = new Uuser();
-    //   $form = $this->createForm(UuserregisterType::class, $user);
+    //   $user = new user();
+    //   $form = $this->createForm(UserregisterType::class, $user);
     //
     //   $form->handleRequest($request);
     //
@@ -80,7 +80,7 @@ class SecurityController extends Controller
      */
     public function inscriptionPas(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
     {
-      $user = new Uuser();
+      $user = new User();
       $form = $this->createForm(PasregisterType::class, $user);
 
       $form->handleRequest($request);

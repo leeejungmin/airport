@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Uuser;
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -38,7 +38,7 @@ class PasregisterType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Uuser::class,
+            'data_class' => User::class,
         ]);
     }
 }

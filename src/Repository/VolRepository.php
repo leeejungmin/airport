@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Vol;
+use App\Entity\Volfake;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -16,7 +16,7 @@ class VolRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Vol::class);
+        parent::__construct($registry, Volfake::class);
     }
 
 //    /**

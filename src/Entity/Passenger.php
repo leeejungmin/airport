@@ -24,9 +24,11 @@ class Passenger
     private $vol;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Uuser", mappedBy="passenger", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\user", inversedBy="passenger", cascade={"persist", "remove"})
      */
-    private $userr;
+    private $user;
+
+
 
     public function __construct()
     {
@@ -66,24 +68,19 @@ class Passenger
         return $this;
     }
 
-
-    public function getUserr(): ?Uuser
+    public function getUser(): ?Uuser
     {
-        return $this->userr;
+        return $this->user;
     }
 
-    public function setUserr(?Uuser $userr): self
+    public function setUser(?Uuser $user): self
     {
-        $this->userr = $userr;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newPassenger = $userr === null ? null : $this;
-        if ($newPassenger !== $userr->getPassenger()) {
-            $userr->setPassenger($newPassenger);
-        }
+        $this->user = $user;
 
         return $this;
     }
+
+
 
 
 }

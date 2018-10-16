@@ -20,14 +20,15 @@ class Pilote
 
 
 
-
-
-  
-
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Volfake", mappedBy="pilot")
      */
     private $vol;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\user", inversedBy="ppilote", cascade={"persist", "remove"})
+     */
+    private $user;
 
     public function __construct()
     {
@@ -47,17 +48,7 @@ class Pilote
 
 
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
 
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Vol[]
