@@ -21,6 +21,8 @@ php bin/console make:migration
 
 php bin/console doctrine:migrations:migrate
 
+php bin/console doctrine:database:create
+
 <link rel="sytlesheet" href="{{asset('css/mystyle.css')}}"/>
 
 C'EST le site pour designer/////////////////////////////////////////////////////////
@@ -239,3 +241,11 @@ SELECT  vol.ville, vol.arrive, vol.depart, vol.id, vol.volnum ,t.username as pil
 
 tu reussir encore!! avec Seigneur!!
   <button type"submit" class="btn btn-danger" ng-click="del(  vol.id )">Del</button>
+
+---------------------------------------------------------------
+
+.service('Thing','$window', function ($window) {
+    $scope.things =function(sit){
+      $window.location.href(sit);
+    }
+      })

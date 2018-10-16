@@ -13,6 +13,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 use App\Entity\User;
+use App\Entity\Pilote;
 
 
 use App\Form\UserregisterType;
@@ -52,6 +53,7 @@ class SecurityController extends Controller
     public function inscription(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
     {
       $user = new User();
+      $pilote = new Pilote();
       $form = $this->createForm(UserregisterType::class, $user);
 
       $form->handleRequest($request);
@@ -62,8 +64,18 @@ class SecurityController extends Controller
         $hash = $encoder->encodePassword($user, $user->getPassword());
 
         $user->setPassword($hash);
-        $manager->persist($user);
+        $pilote->setUser($user);
+
+        $entitys=[$user,$pilote];
+        foreach($entitys as $entity){
+
+          $manager->persist($entity);
+        }
+
         $manager->flush();
+
+
+
 
         return $this->redirectToRoute('security_login');
       }
