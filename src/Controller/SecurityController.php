@@ -94,7 +94,7 @@ class SecurityController extends Controller
         $manager->persist($user);
         $manager->flush();
 
-        return $this->redirectToRoute('security_login');
+        return $this->redirectToRoute('/connexion');
       }
         return $this->render('security/registrationPas.html.twig', [
 
@@ -172,37 +172,5 @@ class SecurityController extends Controller
       ]);
   }
 
-  //   /**
-  // * @Route("/PasTreat", name="PasTreat")
-  // */
-  // public function Pastreat(Passenger $pas){
-  //
-  //
-  //     $entityManager1 = $this->getDoctrine()->getManager();
-  //     $repo1 = $entityManager1->getRepository(User::class);
-  //     $entityManager2 = $this->getDoctrine()->getManager();
-  //     $repo2 = $entityManager2->getRepository(Passenger::class);
-  //     $Pas = new Passenger();
-  //
-  //     $username = $_POST["username"];
-  //     $email = $_POST["email"];
-  //     $password = $_POST["password"];
-  //     $roles = $_POST["roles"];
-  //
-  //     $repo1  ->setUsername($username)
-  //             ->setEmail($email)
-  //             ->setPassword($password)
-  //             ->setRoles($roles);
-  //
-  //
-  //    $entityManager->persist($repo1);
-  //    $entityManager->flush();
-  //
-  //    $pas = $repo1->find($username);
-  //    $pas->setPassenger($pas);
-  //
-  //
-  //    return $this->redirectToRoute('article');
-  //
-  //  }
+
 }
