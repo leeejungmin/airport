@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+
+    <head>
+      <httpProtocol>
+        <customHeaders>
+
+          <add name="Access-Control-Allow-Origin" value="*">
+          <add name="Access-Control-Allow-Header" value="Content-Type">
+          <add name="Access-Control-Allow-Methods" value="GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS">
+
+        </customHeaders>
+      </httpProtocol>
+
+    <base href="/" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}"  />
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/cover.css') }}" />
+
+    <!-- <script src="http://localhost/symfonyjung/ng-admin.min.js"></script> -->
+    <!-- <link rel="stylesheet" href="http://localhost/symfonyjung/ng-admin.min.css"> -->
+    <!-- <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-cookies.js"></script>
+    <script src="https://code.angularjs.org/1.7.2/angular-route.min.js"></script>
+<!-- end of script -->
+
+
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- Bootstrap core CSS -->
+
+    <!-- {% block stylesheets %}<link rel="stylesheet" type="text/css" href="{{ asset('css/cover.css') }}" /><link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}"  />{% endblock %} -->
+
+    <!-- Custom styles for this template -->
+    <!-- <link href="cover.css" rel="stylesheet"> -->
+  </head>
+
+
+
+  <body class="text-center">
+
+    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+      <header class="masthead mb-auto">
+        <div class="inner">
+          <h3 class="masthead-brand">
+            {% if is_granted('ROLE_ADMIN')%}
+            Admin!!
+            {% endif%}
+            {% if is_granted('ROLE_PILOTE')%}
+            Pilote!!
+            {% endif%}
+            {% if is_granted('ROLE_PASSENGER')%}
+            Passenger!!
+            {% endif%}
+            {% if not app.user %}
+            Enchante
+            {% else %}
+            {{app.user.username}}
+            {% endif%}</h3>
+          <nav class="nav nav-masthead justify-content-center">
+
+ <!-- <span class="sr-only">(current)</span> -->
+
+                      {% if is_granted('ROLE_ADMIN')%}
+                    <!-- <a class="nav-link " href="/control/{{app.user.id}}">Control</a> -->
+                    <a class="nav-link " href="{{path('gerevol')}}">GereVol</a>
+                    <a class="nav-link " href="{{path('vollistadmin')}}">Vol</a>
+
+
+                      {% endif%}
+                      {% if is_granted('ROLE_PASSENGER')%}
+                    <a class="nav-link " href="{{path('vollistpas')}}">Vol</a>
+                      {% endif%}
+                      {% if is_granted('ROLE_PILOTE')%}
+                    <a class="nav-link " href="{{path('vollistpilote')}}">Vol</a>
+                      {% endif%}
+                      {% if app.user %}
+                      <!-- <a class="nav-link " href="/amis">Amis</a> -->
+                      <a class="nav-link " href="/edit/{{app.user.id}}">Edit</a>
+                      {% else %}
+                      <a class="nav-link " href="{{path('vollist')}}">Vol</a>
+                      {% endif %}
+                    {% if not app.user %}
+                    <a class="nav-link " href="{{path('security_login')}}">Connexion</a>
+                    {% else %}
+                    <a class="nav-link " href="{{path('security_logout')}}">Deconnexion</a>
+                    {% endif %}
+
+                    {% if not app.user %}
+                    <a class="btn btn-outline-primary" href="{{path('security_registration')}}">Sign up</a>
+                    {% else %}
+                    {% endif %}
+                  </nav>
+
+
+
+            <!-- <a class="nav-link active" href="#">Home</a> -->
+
+          </nav>
+        </div>
+      </header>
+
+
+        <h1 class="cover-heading">Cover your page.</h1>
+        <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
+        <p class="lead">
+          <a href="#" class="btn btn-lg btn-secondary">Learn more</a>
+        </p>
+
+
+      {% block body %}{% endblock %}
+      <div ng-view></div>
+
+
+      <footer class="mastfoot mt-auto">
+        <div class="inner">
+          <p>Cover template for <a href="https://getbootstrap.com/">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+        </div>
+      </footer>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+
+
+    <script>
+  "use strict";
+
+    var leeApp = angular.module('leeApp', ['ngRoute', 'ng-admin']);
+
+
+    leeApp.
+      config([ '$routeProvider','$interpolateProvider','NgAdminConfigurationProvider', function($routeProvider, $interpolateProvider, NgAdminConfigurationProvider) {
+      $interpolateProvider.startSymbol('[[');
+      $interpolateProvider.endSymbol(']]');
+    }])
+
+
+    .controller('amischerchController',['$scope', '$http', function($scope, $http, $location){
+      var nga = NgAdminConfigurationProvider;
+      var admin = nga.application('My First Admin');
+      nga.configure(admin);
+
+
+
+      }]);
+
+        </script>
+        {% block javascripts %}
+        {% endblock %}
+
+
+  </body>
+</html>
