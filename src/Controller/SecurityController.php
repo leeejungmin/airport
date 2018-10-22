@@ -167,6 +167,19 @@ class SecurityController extends Controller
           'user' => $user
       ]);
   }
+    /**
+   * @Route("/home", name="home")
+   */
+  public function home()
+  {
+      $user = $this->getUser();
+
+
+      return $this->render('home/home.html.twig', [
+          'controller_name' => 'Welcome',
+          'user' => $user
+      ]);
+  }
 
   //   /**
   // * @Route("/PasTreat", name="PasTreat")
