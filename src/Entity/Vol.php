@@ -29,7 +29,7 @@ class Vol
     private $pilote;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="passager")
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="passager" , cascade={"persist", "remove"})
      */
     private $passager;
 
@@ -104,7 +104,7 @@ class Vol
 
         return $this;
     }
-
+    
     public function removePassager(User $passager): self
     {
         if ($this->passager->contains($passager)) {
